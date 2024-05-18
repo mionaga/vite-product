@@ -1,6 +1,6 @@
-import { useRecoilState } from 'recoil';
+// import { useRecoilState } from 'recoil';
 // import { useRecoilValue, useSetRecoilState } from 'recoil';
-// import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { counterAtom } from '../store/atom';
 
 export default function RecoilCounter() {
@@ -8,7 +8,7 @@ export default function RecoilCounter() {
   // const counter = useRecoilValue(counterAtom);
   // const setCounter = useSetRecoilState(counterAtom);
 
-  // const resetCounter = useResetRecoilState(counterAtom);
+  const resetCounter = useResetRecoilState(counterAtom);
 
   const handleClick = () => {
     setCounter(c => c + 1);
@@ -18,7 +18,7 @@ export default function RecoilCounter() {
   return (
     <>
       <button onClick={handleClick}>カウント</button>
-      {/* <button onClick={() => resetCounter()}>リセット</button> */}
+      <button onClick={() => resetCounter()}>リセット</button>
       <p>{counter}回、クリックされました。</p>
     </>
   );

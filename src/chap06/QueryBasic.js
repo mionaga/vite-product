@@ -4,7 +4,7 @@ const sleep = delay => new Promise(resolve => setTimeout(resolve, delay));
 
 const fetchWeather = async () => {
   await sleep(2000);
-  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Tokyo&lang=ja&appid=8dd79ea581ba499d0aeb8f2186adb565`);
+  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Tokyo&lang=ja&appid=xxxxx`);
   if (res.ok) { return res.json(); }
   throw new Error(res.statusText);
 };

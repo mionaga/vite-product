@@ -460,9 +460,9 @@ root.render(
 //   <FormSelect />
 // );
 
-root.render(
-  <FormList />
-);
+// root.render(
+//   <FormList />
+// );
 
 // root.render(
 //   <FormRadio />
@@ -492,9 +492,9 @@ root.render(
 //   <StateNestImmer2 />
 // );
 
-// root.render(
-//   <StateTodo />
-// );
+root.render(
+  <StateTodo />
+);
 
 // root.render(
 //   <FormBasic />
@@ -629,12 +629,12 @@ root.render(
 //   <QueryPre />
 // );
 
-const cli = new QueryClient();
-root.render(
-  <QueryClientProvider client={cli}>
-    <QueryBasic />
-  </QueryClientProvider>
-);
+// const cli = new QueryClient();
+// root.render(
+//   <QueryClientProvider client={cli}>
+//     <QueryBasic />
+//   </QueryClientProvider>
+// );
 
 // const cli = new QueryClient({
 //   defaultOptions: {
@@ -656,10 +656,10 @@ root.render(
 // #endregion
 
 // #region ■■chap07■■
+
 // root.render(
 //   <StateEffect init={0} />
 // );
-
 // root.render(
 //   <HookTimer init={10} />
 // );
