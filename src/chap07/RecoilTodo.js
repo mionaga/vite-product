@@ -3,41 +3,64 @@ import { useState } from "react";
 import { todoAtom, todoLastIdSelector } from "../store/atom";
 import '../chap04/StateTodo.css';
 
-let maxId = 6;
+// let maxId = 6;
 
 const RecoilTodo = () => {
-  const {todos, setTodos} = useState('');
-  const {addTodo, setAddTodo} = useState(todoAtom);
+  const [title, setTitle] = useState('');
+  const [todos, setTodos] = useRecoilState(todoAtom);
+  const maxId = useRecoilValue(todoLastIdSelector);
   
 
   const handleChange = (e) => {
-    setTodos(e.target.value);
+    setTitle(e.target.value);
   }
-  const handleClick = () => {
-    setAddTodo([
+  const handleAdd = () => {
+    setTodos([
       ...todos,
       {
         id: ++maxId,
-        todos,
+        title,
+        isDone: false
       }
     ]);
+    setTitle('');
   };
-  
+  const handleDone = (e) => {
+    setTodos((todos.map((todo) => {
+      if(todo.id === Number(e.target.dataset.id)){
+        return {
+          ...todo,
+          isDone: !todo.isDone
+        }
+      } else {
+        return todo;
+      }
+    })));
+  };
+  const handleRemove = (e) => {
+    setTodos(todos.filter((todo) => {
+      return todo.id !== Number(e.target.dataset.id);
+    }));
+  }
+
   return (
     <>
-    <label htmlFor="title">やること： </label>
-    <input type="text" name="title" value={todos} id="title" onChange={handleChange} />
-    <button type="button" onClick={handleClick}>Add</button>
-    <hr/>
+    <label>
+      やること：
+      <input type="text" value={title} onChange={handleChange} />
+      <button type="button" onClick={handleAdd}>Add</button>
+    </label>
+    <hr />
     <ul>
-      {console.log(todos)}
-    {/* {todos.map((todo) => {
-      return (
-        <li key={todo.id}>
-        {todo.title}
-        </li>
-      )
-    })} */}
+      {todos.map((todo) => {
+        return (
+          <li key={todo.id} className={todo.isDone ? 'done' : ''}>
+            {todo.title}
+            <button type="button" onClick={handleDone} data-id={todo.id}>Done</button>
+            <button type="button" onClick={handleRemove} data-id={todo.id}>Delete</button>
+          </li>
+        )
+      })}
     </ul>
     </>
   );

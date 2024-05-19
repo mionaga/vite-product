@@ -1,75 +1,75 @@
 import { useState } from "react";
-import './StateTodo.css';
+import './StateTodo.css'
 
 let maxId = 4;
+
 const StateTodo = () => {
   const [title, setTitle] = useState('');
   const [todos, setTodos] = useState([
     {
       id: 1,
-      title: '買い物に行く',
+      title: 'コーヒーを淹れる',
       isDone: false
     },
     {
       id: 2,
-      title: '掃除機をかける',
-      isDone: false
+      title: 'いとちゃんと遊ぶ',
+      isDone: true
     },
     {
       id: 3,
-      title: '水やりをする',
+      title: 'ごはん作る',
       isDone: false
-    }
+    },
   ]);
 
-  const handleChange = (e) => {
-    setTitle(e.target.value)
-  };
+  const handleChange = e => setTitle(e.target.value);
   const handleAdd = () => {
+    const newTodo = {
+      id: maxId++,
+      title,
+      isDone: false
+    };
     setTodos([
-      ...todos,
-      {
-        id: ++maxId,
-        title,
-        isDone: false
-      }
+      ...todos, newTodo
     ]);
     setTitle('');
   };
-  const handleDelete = (e) => {
-    setTodos(
-      todos.filter((todo) => {
-        return todo.id !== Number(e.target.dataset.id);
-      })
-    );
+  const handleRemove = (e) => {
+    setTodos(todos.filter((todo) => {
+      return todo.id !== Number(e.target.dataset.id);
+    }));
   };
   const handleDone = (e) => {
+    const id = Number(e.target.dataset.id);
+    
     setTodos(todos.map((todo) => {
-      if(todo.id === Number(e.target.dataset.id)){
+      if(id === todo.id){
         return {
-          ...todo,
+          ...todo, 
           isDone: !todo.isDone
-        }
-      }else{
+        };
+      } else {
         return todo;
-      }
+      } 
     }));
-  }
+  };
 
   return (
     <>
-    <label>やること： 
-      <input type="text" name="title" value={title} onChange={handleChange} />
-      <button type="button" onClick={handleAdd} >Add</button>
+    <label>やること：
+      <input type="text" value={title} onChange={handleChange} />
+      <button type="button" onClick={handleAdd}>Add</button>
     </label>
     <hr />
     <ul>
       {todos.map((todo) => {
         return (
-        <li key={todo.id} className={ todo.isDone ? 'done' : '' }>{todo.title}
-          <button type="button" onClick={handleDone} data-id={todo.id}>Done</button>
-          <button type="button" onClick={handleDelete} data-id={todo.id}>Delete</button>
-        </li>
+          <li key={todo.id} className={todo.isDone ? 'done' : ''}>
+            {todo.title}
+            <button type="button" onClick={handleDone} data-id={todo.id}>Done</button>
+            <button type="button" onClick={handleRemove} data-id={todo.id}>Delete</button>
+          </li>
         )
       })}
     </ul>
